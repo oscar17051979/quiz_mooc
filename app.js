@@ -1,3 +1,5 @@
+// IMPORTAR PAQUETES CON MIDDLEWARES
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -5,27 +7,44 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// IMPORTAR ENRUTADORES
+
 var routes = require('./routes/index');
-var users = require('./routes/users');
+// var users = require('./routes/users');
+
+// CREAR APLICACIÓN
 
 var app = express();
 
 // view engine setup
+// INSTALAR GENERADOR DE VISTAS EJS
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+
+// FAVICON DE LA CABECERA
+
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
+// INSTALAR MIDDLEWARES
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// INSTALAR ENRUTADORES
+
 app.use('/', routes);
-app.use('/users', users);
+// app.use('/users', users);
 
 // catch 404 and forward to error handler
+
+// RESTO DE RUTAS: GENERA ERROR 404 DE HTTP
+
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
@@ -36,6 +55,9 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
+
+// GESTIÓN DE ERRORES DURANTE EL DESARROLLO
+
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
@@ -48,6 +70,9 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
+
+// GESTION DE ERRORES DE PRODUCCIÓN
+
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -56,5 +81,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
+// EXPORTAR APP PARA COMANDO DE ARRANQUE
 
 module.exports = app;
