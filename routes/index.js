@@ -10,6 +10,11 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz MOOC' });
 });
 
+/* GET Author PAGE. */
+router.get('/author', function(req, res) {
+  res.render('author', { title: 'Créditos' });
+});
+
 // RUTAS PARA LAS ACCIONES PARA QUESTION Y ANSWER
 
 router.get('/quizes/question', quizController.question);
