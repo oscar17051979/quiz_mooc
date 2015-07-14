@@ -1,9 +1,15 @@
+// IMPORTACIÓN DEL MODELO
+
+var models = require('../models/models.js');
+
 // GET /quizes/question
 
 // METODO PARA EXPORTAR PREGUNTAS
 
 exports.question = function(req, res) {
-  res.render('quizes/question', {pregunta: 'Capital de Italia'});
+  models.Quiz.findAll().success(function(quiz) {
+  res.render('quizes/question', {pregunta: quiz[0].pregunta});
+  })
 };
 
 // GET /quizes/answer
@@ -11,9 +17,11 @@ exports.question = function(req, res) {
 // METODO PARA EXPORTAR RESPUESTAS
 
 exports.answer = function(req, res) {
-  if (req.query.respuesta === 'Roma'){
+  models.Quiz.findAll().success(function(quiz) {
+  if (req.query.respuesta === quiz[0].respuesta){
     res.render('quizes/answer', {respuesta: 'Respuesta Correcta'});
   } else {
     res.render('quizes/answer', {respuesta: 'Respuesta Incorrecta'});
   }
+  })
 };

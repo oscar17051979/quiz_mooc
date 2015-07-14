@@ -28,6 +28,8 @@ $RECYCLE.BIN/
 npm-debug.log
 node-modules
 node_modules
+quiz.sqlite
+.env
 .AppleDouble
 .LSOverride
 
